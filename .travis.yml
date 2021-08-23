@@ -7,3 +7,16 @@ before_install:
 
 script:
   - docker run -e CI=true aronchu/docker-kubernetes npm run test
+
+deploy: 
+  provider: elasticbeanstalk
+  region: "us-east-1"
+  app: "docker-kubernetes"
+  env: "Dockerkubernetes-env"
+  bucket_name: "elasticbeanstalk-us-east-1-708690108011"
+  bucket_path: "docker-kubernetes"
+  on:
+    branch: main
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: "$AWS_SECRET_ACCESS_KEY"
